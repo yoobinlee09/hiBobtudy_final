@@ -1,0 +1,178 @@
+
+.LoginPage{
+   /* background-color:rgba(255, 255, 255, 0.5);*/
+}
+.why{
+    text-align:center;
+    margin-left:15%;
+    margin-right:15%;
+    background-color:rgba(255, 255, 255, 0.85);
+    height: 200vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+.Logintitle{
+    color:black;
+    
+    width: 100wv;
+    height: 50px;
+    margin-left:10%;
+    margin-right:10%;
+    /*border-radius: 20px;*/
+    text-align: left;
+    font-size:large;
+    
+    
+    
+}
+.space_LoginPage{
+    color: black;
+    margin-top: 30px;
+    border-top: 2px solid black;
+    
+    font-size: 11px;
+    text-align: center;
+    /*background-color: black;*/
+}
+.none{
+    height: 15vh;
+}
+.none2{
+    height: 8vh;
+}
+.space_LoginPage{
+    color:rgb(129, 121, 121);
+  
+    width: 100wv;
+    height: 50px;
+    margin-left:10%;
+    margin-right:10%;
+    /*border-radius: 20px;*/
+    text-align: left;
+    font-size:large;
+    
+}
+.snsLogin{
+    color:rgb(129, 121, 121);
+    
+    width: 100wv;
+    height: 50px;
+    margin-left:10%;
+    margin-right:10%;
+    /*border-radius: 20px;*/
+    text-align: center;
+    color:black
+}
+.snsLogin_Button_Naver{
+    width: 100%;
+    height: 100%;
+    background-image: url(./naverbutton.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    
+    border-radius: 300%;
+    border-color: rgba(255, 255, 255, 0);
+ 
+    /*background-color: #F7E600;*/
+   
+   
+    cursor:pointer;
+}
+.snsLogin_Button_Kakao{
+    width: 100%;
+    height: 100%;
+    background-image: url(./kakaobutton.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    
+    border-radius: 300%;
+    border-color: rgba(255, 255, 255, 0);
+ 
+    /*background-color: #F7E600;*/
+   
+   
+    cursor:pointer;
+    
+    
+    
+    
+}
+.snsLogin_Button_Google{
+    width: 100%;
+    height: 100%;
+    background-image: url(./googlebutton.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    
+    border-radius: 300%;
+    border-color: rgba(255, 255, 255, 0);
+ 
+    /*background-color: #F7E600;*/
+   
+   
+    cursor:pointer;
+    
+}
+.inputbox_LoginPage{
+    
+    width:50%;
+    height: 40px;
+    text-align: left;
+    border-radius: 3px;
+    border: 0px solid gray;
+    border-bottom: 2px solid rgb(129, 121, 121);
+    background-color: rgba(255, 255, 255, 0);
+   
+}
+.bottomButton_LoginPage{
+    text-align: center;
+    width: 80%;
+   
+    
+    
+    height:48px;
+    border:none;
+    font-weight: 600;
+    background-color: #9e30f4;
+    border-radius: 64px;
+    color: white;
+    cursor:pointer;
+    margin-bottom: 16px;
+   
+    font-size: 17px;
+  }
+.bottomButton_LoginPage:disabled{
+    
+    background-color: rgb(129, 121, 121);
+    color:white;
+  }
+.underbar{
+    margin-left:10%;
+    margin-right:10%;
+    width:80%;
+    border-bottom: 1px solid gray;
+}
+.naverbutton{
+    height: 6vh;
+    width: 60%;
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    /*background-size:auto;*/
+   /* background-attachment: fixed;*/
+    object-fit:scale-down;
+    border-radius: 10px;
+    border:none;
+}
+.grid_login{
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height:12vh;
+    width: 36vh;
+    border:none;
+}

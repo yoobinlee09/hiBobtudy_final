@@ -1,0 +1,72 @@
+.Card{
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+}
+.cardbody{
+    box-shadow:0px 0px 20px 0px rgb(204, 204, 204);
+    background-color: white;
+    border-radius: 20px;
+    height:50vh;
+    width:40vh;
+    margin-left: 9%;
+    font-weight: 600;
+    color:rgb(86, 86, 86);
+    margin-bottom: 6vh;
+}
+.img{
+    width: auto;
+    height: auto;
+    
+}
+.info{
+    text-align: left;
+    padding-left: 3vh;
+    
+}
+.subinfo{
+    text-align: left;
+    padding-left: 3vh;
+    font-weight:400;
+    color: gray;
+}
+.vh{
+    height: 24vh;
+    width: 40vh;
+    border-radius: 20px 20px 0px 0px;
+}
+.vh2{
+    height: 1vh;
+}
+.attendmessage{
+    text-align: left;
+    padding-left: 3vh;
+    font-size:smaller;
+    font-weight: 10;
+    color: gray;
+}
+.bottom{
+    text-align: left;
+    padding-left: 3vh;
+    font-size: smaller;
+    font-weight: 400;
+    color: gray;
+}
+.comment{
+    color:gray;
+    font-size:medium;
+}
+.write{
+    background-color: white;
+    border:none;
+    border-bottom: 2px solid #9e30f4;
+    color:rgb(86, 86, 86);
+    
+}
+.viewbutton{
+    
+    border-radius: 20px;
+    background-color: white;
+    border:none;
+    color:rgb(86, 86, 86);
+}

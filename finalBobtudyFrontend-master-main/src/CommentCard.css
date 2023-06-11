@@ -1,0 +1,24 @@
+.CommentCard2{
+    padding-top: 1vh;
+    width:100%;
+    height:auto;
+    box-shadow:0px 0px 20px 0px rgb(204, 204, 204);
+    background-color:rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+}
+.date{
+    margin-left:1vw;
+    font-size: small;
+    color:gray;
+}
+.commenttitle{
+    
+    margin-left:1vw;
+    font-size:medium;
+    font-weight: 600;
+}
+.commentcontent{
+    margin-left:1vw;
+    font-weight: 400;
+    color:gray;
+}

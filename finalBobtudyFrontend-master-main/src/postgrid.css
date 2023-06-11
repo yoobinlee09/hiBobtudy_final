@@ -1,0 +1,35 @@
+.postgrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+}
+
+.divp1{
+    box-shadow:3px 3px 5px 0px rgb(204, 204, 204);
+    background-color: white;
+    border-radius: 20px;
+    height:50vh;
+    margin-left: 4vh;
+    margin-right:2vh;
+    margin-bottom: 6vh;
+    
+}
+.divp2{
+    box-shadow:3px 3px 5px 0px rgb(204, 204, 204);
+    background-color: white;
+    margin-bottom: 6vh;
+    border-radius: 20px;
+    height:50vh;
+    margin-left: 2vh;
+    margin-right:2vh;
+    
+}
+.divp3{
+    box-shadow:3px 3px 5px 0px rgb(204, 204, 204);
+    background-color: white;
+    margin-bottom: 6vh;
+    border-radius: 20px;
+    height:50vh;
+    margin-left: 2vh;
+    margin-right:4vh;
+    
+}

@@ -1,0 +1,103 @@
+.popupPosts2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    width: 40%;
+    height: 30%;
+    padding: 20px;
+    font-size: large;
+    font-weight: 600;
+    z-index: 999;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1);
+    border : 1px solid rgb(220, 217, 217);
+    border-radius: 10px;
+}
+
+.popupPosts {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    width: 40%;
+    height: 30%;
+    padding: 20px;
+    font-size: large;
+    font-weight: 600;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1);
+    border : 1px solid rgb(220, 217, 217);
+    border-radius: 10px;
+}
+
+
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.rating-confirm-button{
+    background-color: rgba(255,255,255,0);
+    box-shadow:30px 30px 80px rgba(55,84,170,0.1), -30px -30px 80px rgba(255,255,255,.8);
+    display: inline-block;
+    font-weight: 900;
+    border: 2px solid #dd2eea;
+    overflow: hidden;
+    height: 5vh;
+    /* width: 30px; */
+    cursor:pointer;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgba(red, green, blue, 0);
+    color: #dd2eea;
+    display: inline-block;
+    font-size: 16px;
+    
+}
+
+.rating-close-button {
+
+    background-color: rgba(255,255,255,0);
+    box-shadow:30px 30px 80px rgba(55,84,170,0.1), -30px -30px 80px rgba(255,255,255,.8);
+    display: inline-block;
+    font-weight: 900;
+    border: 2px solid #dd2eea;
+    overflow: hidden;
+    height: 5vh;
+    width: 10vh;
+    cursor:pointer;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 10px;
+
+    background-color: rgba(red, green, blue, 0);
+    color: #dd2eea;
+    display: inline-block;
+    font-size: 16px;
+}
+.next-button{
+    background-color: rgba(255,255,255,0);
+    box-shadow:30px 30px 80px rgba(55,84,170,0.1), -30px -30px 80px rgba(255,255,255,.8);
+    display: inline-block;
+    font-weight: 900;
+    border: 2px solid #dd2eea;
+    overflow: hidden;
+    height: 5vh;
+    width: 10vh;
+    cursor:pointer;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 10px;
+
+    background-color: rgba(red, green, blue, 0);
+    color: #dd2eea;
+    display: inline-block;
+    font-size: 16px;
+}
