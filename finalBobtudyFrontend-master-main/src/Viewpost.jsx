@@ -24,11 +24,26 @@ export const Viewpost=(props)=>{
     // 겸상 신청 또는 취소가 완료되었다는 팝업
   const [showAttendPopup, setShowAttendPopup] = useState(false);
   const [showUnattendPopup, setShowUnattendPopup] = useState(false);
-  const postnumber =location.state.postnumber;
-    
+  // 수정 시작 return문도 수정
+  const [userInfo, setUserInfo] = useState([]);
+  console.log('postid',postid)
+
+  useEffect(() => {
+    axios.get(`/memberInfo/${postid}`)
+      .then((response) => {
+        setUserInfo(response.data.data); // setUserInfo를 배열이 아니라 객체로 설정합니다.
+        console.log('info성공', response.data.data)
+      })
+      .catch((error) => {
+        console.log('안됨', error);
+      });
+  }, [accessuserid]);
+  const averageScore = userInfo ? userInfo.manner_score : 0; // userInfo가 없으면 0으로 초기화
+  console.log(averageScore)
+  // 수정 끝
     
     useEffect(()=>{
-        axios
+      axios
       .get("/applications/dining_spoon")
       .then((response) => {
         setDiningSpoonList(
@@ -38,7 +53,6 @@ export const Viewpost=(props)=>{
       .catch((error) => {
         console.log('/applications/dining_spoon',error);
       });
-  
 
     var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
@@ -98,27 +112,27 @@ function displayMarker(place) {
      const [attender2, setAttender2] = useState("");
     const [attender3, setAttender3] = useState("");
     const [attendcounter, setAttendcounter] = useState(0);
-    // useEffect(() => {
-    //   axios
-    //     .get(`/dining/${id}`) 
-    //     .then((response) => {
-    //       console.log('response.data.attender1:'+response.data[0].attender1);
-    //       // response에서 받아온 데이터를 각 상태에 할당
-    //       const post = response.data;
-    //       let attender01=response.data[0].attender1;
-    //       let attender02=response.data[0].attender2;
-    //       let attender03=response.data[0].attender3;
-    //       let attendcounterr=response.data[0].attendcounter;
-    //       setAttender1(attender01);
-    //       setAttender2(attender02);
-    //       setAttender3(attender03);
-    //       setAttendcounter(attendcounterr);
-    //       console.log('post에get요청한결과'+attender01+attender02+attender03);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }, []);
+    useEffect(() => {
+    /*  axios
+        .get(`/posts/${id}`) 
+        .then((response) => {
+          console.log('response.data.attender1:'+response.data[0].attender1);
+          // response에서 받아온 데이터를 각 상태에 할당
+          const post = response.data;
+          let attender01=response.data[0].attender1;
+          let attender02=response.data[0].attender2;
+          let attender03=response.data[0].attender3;
+          let attendcounterr=response.data[0].attendcounter;
+          setAttender1(attender01);
+          setAttender2(attender02);
+          setAttender3(attender03);
+          setAttendcounter(attendcounterr);
+          console.log('post에get요청한결과'+attender01+attender02+attender03);
+        })
+        .catch((error) => {
+          console.log(error);
+        });*/
+    }, []);
     
     const navigate = useNavigate();
     const goToback = () => {
@@ -138,18 +152,24 @@ function displayMarker(place) {
           return minute+"분";
         }
       };
-      const deletepost=()=>{
-        if(userid===accessuserid){
-        axios.delete(deleteurl,{})
-        alert("삭제되었습니다.");
-        goToback();
+      const id=location.state.id;
+    let deleteurlf='/dining/';
+    let deleteurl=deleteurlf+id;
+   
+      function deletepost(){
+        if(userid==accessuserid){
+        axios.delete(`/dining/${id}`).then((res)=>{
+          console.log(res);
+          alert("삭제되었습니다.");
+           goToback();
+        }).catch((err)=>{console.log(err)});
+        //alert("삭제되었습니다.");
+        //goToback();
         }else{
             alert("작상자만 삭제할 수 있습니다.")
         }
       }
-    const id=location.state.id;
-    let deleteurlf='/dining/';
-    let deleteurl=deleteurlf+id;
+   
     const postthumbnail=location.state.postthumbnail;
     const posttitle = location.state.posttitle;
     const accessuserid=location.state.accessuserid;
@@ -170,10 +190,6 @@ function displayMarker(place) {
     //const attender3=location.state.attender3;
     const postid=location.state.postid;
     const userid=location.state.userid;
-    // const postnumber =location.state.postnumber;
-    // console.log('postnumvdre',postnumber);
-    const[comment,setcomment]=useState('');
-    // 겸상자 선정이 완료된 사람
 
     const [attenders, setAttenders] = useState([]); 
     // 현재 유저가 이미 해당 게시글에 겸상신청을 한 경우 찾음 attender와 다름!!
@@ -328,11 +344,6 @@ const renderSpoonButtons = () => {
   }, [accessuserid, id, diningSpoonList]);
 
 
-// // 겸상 신청 팝업 닫기
-// const handleUnattendPopupClose = useCallback(() => {
-//   // setShowUnattendPopup(false);
-//   setShowAttendPopup(false);
-// }, []);
 
 // 겸상 신청 팝업 닫기
 const handleUnattendPopupClose = useCallback(() => {
@@ -342,11 +353,6 @@ const handleUnattendPopupClose = useCallback(() => {
   function gotoSelectSpoon() {
     navigate("/SelectSpoon", {
       state: {
-        // maxattender:maxattender,
-        // attendcounter:attendcounter,
-        // attender1: attender1,
-        // attender2: attender2,
-        // attender3: attender3,
         // viewpost 밥장인지 아닌지 추가
         postid: postid,
         id2: accessuserid,
@@ -373,7 +379,18 @@ const handleUnattendPopupClose = useCallback(() => {
     );
   };
 
-  // 댓글부분 , 여기까지 수정함
+
+
+
+
+    const[comment,setcomment]=useState('');
+    const getComments=()=>{
+      axios.get(`/dining/${id}`).then((res)=>{
+        console.log(res.data.data.comments);
+        console.log(res.data.data.comments);
+        setComments(res.data.data.comments);
+        console.log(comment[0])})
+  }
     const handlecomment=(e)=>{
         setcomment(e.target.value);
       }
@@ -385,15 +402,21 @@ const handleUnattendPopupClose = useCallback(() => {
       const commentwriteminute=now.getMinutes();
       const [mentions,setComments]=useState([]);
     function sendcomment(){
-        axios.post('/mentions', {
-            commentpostid:id,
+        axios.post('/comments', {
+            /*commentpostid:id,
             writerid:accessuserid,
-            comment:comment,    
+            comment:comment,  */  
             writeday:commentwriteday,
             writemonth:commentwritemonth,
             writehour:commentwritethour,
-            writeminute:commentwriteminute
-          })
+            writeminute:commentwriteminute,
+            orderNum:1,
+            username:accessuserid,
+            diningId:id,
+            content:comment
+          },
+          {withCredentials: true}
+          )
           .then((response) => {
             getComments();
             alert('댓글을 등록하였습니다.');
@@ -403,19 +426,20 @@ const handleUnattendPopupClose = useCallback(() => {
             // 예외 처리
           })
     };
-    const getComments=()=>{
+    
+    /*const getComments=()=>{
         axios.get('/mentions').then((res)=>{
           
           console.log(res.data);
           setComments(res.data);})
-    }
+    }*/
     useEffect(()=>{
     
         getComments();
       },[]);
-      let attender_1=(attender1=='')?attender1:attender1+'님';
+    /*  let attender_1=(attender1=='')?attender1:attender1+'님';
       let attender_2=(attender2=='')?attender2:attender2+'님';
-      let attender_3=(attender3=='')?attender3:attender3+'님';
+      let attender_3=(attender3=='')?attender3:attender3+'님';*/
   return (
     <div className="Viewpost">
     <Header_islogin userid={accessuserid}/>
@@ -434,13 +458,14 @@ const handleUnattendPopupClose = useCallback(() => {
             
              
              </div>
-             
-            <div className="rightbar">
+
+                         <div className="rightbar">
           <div>
             {userid === accessuserid ? (
               <>
                 <div className="postid">
-                  밥장 {userid}님<br></br>별점{" "}
+                <p>밥장 {userid}님</p>
+                  <p className='scoreview'>별점 {averageScore}점</p>
                 </div>
                 <br></br>
                 <div className="attenderlist">
@@ -457,7 +482,9 @@ const handleUnattendPopupClose = useCallback(() => {
             ) : (
               <>
                 <div className="postid">
-                  밥장 {userid}님<br></br>별점{" "}
+                <p>밥장 {postid}님</p><br></br>
+                  <p className='scoreview'>별점 평균 {averageScore}점</p>
+                  
                 </div>
                 <br></br>
                 <div className="attenderlist">
@@ -505,11 +532,12 @@ const handleUnattendPopupClose = useCallback(() => {
             )}
           </div>
         </div>
+          
             
              </div>
                 <div className='post1'>
                 <br></br>
- <div className='title'> {posttitle} <br></br><div className="color"> #{maxattender}인상 #{restaurantname}</div></div>
+ <div className='title'> {posttitle} <br></br><div className="color"> #{restaurantname}</div></div>
  <div className='bar'></div>
  <br></br>
  
@@ -520,8 +548,8 @@ const handleUnattendPopupClose = useCallback(() => {
  <br></br>
  <div className="contentname">모집 기간: {writemonth}월 {writeday}일 ~ {endmonth}월 {endday}일</div>
  <br></br>
- <div className="contentname">겸상자: {attender_1} {attender_2} {attender_3} </div>
- <br></br>
+ {/*<div className="contentname">겸상자: {attender_1} {attender_2} {attender_3} </div>*/}
+ 
  <div className="contentname">소개글: {introduction}</div>
  <br></br>
  <div className="contentname"></div>
@@ -548,22 +576,23 @@ const handleUnattendPopupClose = useCallback(() => {
             <div className="no">
              
              {mentions.map(comment=>{
-               
+               console.log(comment);
               
-               if(comment.commentpostid==id){
+               //if(comment.diningId==id){
                return (
                  
                  <CommentCard 
-                 commentpostid={comment.commentpostid}
+                 commentpostid={comment.diningId}
                  writemonth={comment.writemonth}
                  writeday={comment.writeday}
-                 comment={comment.comment}
-                 writerid={comment.writerid}
+                 comment={comment.content}
+                 writerid={comment.username}
                  writehour={comment.writehour}
                  writeminute={comment.writeminute}
                  />
                  
-               );}
+               );
+             // }
               
              })}
            </div>

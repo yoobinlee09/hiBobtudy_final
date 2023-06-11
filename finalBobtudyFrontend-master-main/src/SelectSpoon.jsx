@@ -31,15 +31,16 @@ export default function SelectSpoon(props) {
           setAddAttenderPopup(false);
         }, []); 
 
-
+// /applications/dining_spoon' 겸상신청한 내용
 
           // diningSpoonList, 겸상db 전체 조회 겸상신청한 내용 리스트로 저장 
           useEffect(() => {
             axios
-              .get('/applications/dining_spoon')
+              .get('/applications/dining_spoon',{ withCredentials: true })
               .then((response) => {
-                const allApplications = response.data.data; // 응답 데이터에서 배열 데이터를 추출
-                const allApplicants = allApplications.filter(
+                const allApplications = response.data.data; // allApplications은 모든 데이터
+                // allApplicants는 
+                const allApplicants = allApplications.filter(  
                   (item) => item.diningId === postnumber
                 );
                 setDiningSpoonList(allApplicants);
@@ -54,7 +55,7 @@ export default function SelectSpoon(props) {
     const [MyPost, setMyPost] = useState([]); 
     // post 현재 게시글 겸상 db
     useEffect(() => {
-      axios.get(`/applications/${postnumber}`)
+      axios.get(`/applications/${postnumber}`,{ withCredentials: true })
       .then((response) => {
         setMyPost(response.data.data);        
         console.log('response.data',response.data.data);
@@ -66,7 +67,7 @@ export default function SelectSpoon(props) {
     }, [postnumber]);
 
     useEffect(() => {
-      axios.get(`/dining/${postnumber}`)
+      axios.get(`/dining/${postnumber}`,{ withCredentials: true })
           .then((response) => {
               setMyPostDetail(response.data.data);
               console.log('MyPostDetail',response.data.data)
@@ -89,7 +90,7 @@ const handleSpoonSelection = (spoonId) => {
     axios.put(`/applications/select`, {
       diningId: postnumber,
       username: spoonId
-    })
+    },{ withCredentials: true })
 
     .then((response) => {
       console.log('Dining Spoon attending 업데이트', response.data);
@@ -106,7 +107,7 @@ const handleSpoonSelection = (spoonId) => {
         message_date: new Date().toISOString().slice(0, 10),
     };
     
-      axios.post("/messages", message)
+      axios.post("/messages", message ,{ withCredentials: true })
         .then(() => {
           alert("메시지가 성공적으로 전송되었습니다.");
         })
@@ -125,7 +126,7 @@ const handleSpoonSelection = (spoonId) => {
 useEffect(() => {
   if (selectedSpoonId) {
     axios
-      .get('/applications/dining_spoon')
+      .get('/applications/dining_spoon',{ withCredentials: true })
       .then((response) => {
         const allApplications = response.data.data;
         const allApplicants = allApplications.filter(
@@ -268,7 +269,7 @@ const [showAttendPopup, setShowAttendPopup] = useState(false); // 팝업을 표�
                       {diningSpoonList.filter((spoon) => spoon.diningId === postnumber && spoon.selectionStatus).map((spoon) => spoon.username).join(' ')}
 
                       <div className="button-container">
-                        <button className="close-button" onClick={handleAttendPopupClose}                  >
+                        <button className="close-button3" onClick={handleAttendPopupClose}                  >
                           닫기
                         </button>
                       </div>

@@ -41,7 +41,7 @@ body{
 
 }
 .MessageBoxButton-container{
-/* dd */
+    margin-bottom: 20px;
 }
 .message {
     display: flex;
@@ -217,4 +217,78 @@ body{
     bottom: 10px; /* 하단 여백 조정 */
     left: 50%; /* 가운데로 이동 */
     transform: translateX(-50%); /* 가운데 정렬 */
+}
+.sendContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .sendContent .inputReceiver{
+
+    border : 1px solid rgb(220, 217, 217);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+  }
+  .sendContent .id-search-button {
+    margin-bottom: 10px;
+    height: 40px;
+  }
+  .id-search-button{
+
+    font-weight: 900;
+    border: 2px solid #dd2eea;
+    color: #dd2eea;
+    display: inline-block;
+    font-size: 16px;
+    background-color: rgba(255,255,255,0);
+    border-radius: 10px;
+  }
+  
+  .sendContent .inputMessageTitle {
+    margin-bottom: 10px;
+    height: 40px;
+    width: 90%;
+
+    border : 1px solid rgb(220, 217, 217);
+    border-radius: 10px;
+  }
+  
+  .sendContent .inputMessageContent {
+    height: 100px;
+    width: 90%;
+    margin-bottom: 10px;
+
+    border : 1px solid rgb(220, 217, 217);
+    border-radius: 10px;
+  }
+  
+  .sendContent .id-search-button {
+    width: 80px;
+  }
+  
+  .sendButton{
+    background-color: rgba(255,255,255,0);
+    box-shadow:30px 30px 80px rgba(55,84,170,0.1), -30px -30px 80px rgba(255,255,255,.8);
+
+    font-weight: 900;
+    border: 2px solid #dd2eea;
+    height: 5vh;
+    width: 100px;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgba(red, green, blue, 0);
+    color: #dd2eea;
+    font-size: 16px;
+    margin-left: 500px;
+    
+  }
+  .SendBox-button.active,
+.ReceiveBox-button.active {
+  text-decoration: underline;
+  text-decoration-color: #dd2eea;
+  text-decoration-thickness: 2px;
+
 }

@@ -18,11 +18,10 @@ import axios from 'axios';
 
 import Card from './Card';
 
- // RatingPopup추가부분
- import RatingPopup from './RatingPopup';
 
 
 export default function Main_islogin() {
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL;
   const location = useLocation();
   // eslint-disable-next-line no-restricted-globals
   const id = location.state.userid;
@@ -35,7 +34,7 @@ export default function Main_islogin() {
   
   const getPosts=()=>{
     console.log("검색어:"+searchText);
-    axios.get('/dining/all').then((res)=>{
+    axios.get('/dining/all', { withCredentials: true }).then((res)=>{
       
      
       if(searchText==''&&regionset==''&&genderset=='혼성'){
@@ -251,127 +250,11 @@ export default function Main_islogin() {
     forceUpdate();
    }
    const [count,setcounter]=useState(6);  //한번에 6게시글씩보기
-
-   // RatingPOpup 추가
-    // RatingPopup추가부분
-  const [showPopupPosts, setShowPopupPosts] = useState(true); // filteredPosts의 handleRatingClose
-  const [showPopupPosts2, setShowPopupPosts2] = useState(true); // filteredPosts2의 handleRatingClose
-  const [diningSpoonData, setDiningSpoonData] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState([]); // 초기값을 빈 배열로 설정
-  const [filteredPosts2, setFilteredPosts2] = useState([]); // 초기값을 빈 배열로 설정
-
-  useEffect(() => {
-    const now = new Date();
-    const threshold = 2 * 60 * 60 * 1000;
-  
-    const ListFilterPosts = async () => {
-      try {
-        // 겸상신청 db 조회 아마 /applications?
-        const response = await axios.get('/dining/all');
-        //  axios.get('/dining/all').then((res)=>{console.log(res.data);})
-        const allposts = response.data;
-        // setDiningSpoonData(allposts);
-        console.log('allposts',allposts)
-  
-        // 게시글의 밥장인 경우
-        const filteredPosts = allposts.filter((post) => {
-          const { hour, minute, day, month } = post;
-          const postTime = new Date(now.getFullYear(), month - 1, day, hour, minute);
-          const elapsedTime = now - postTime;
-          const isOwner = post.writer_id === id;
-          return (isOwner) && (elapsedTime >= threshold);
-        });
-  
-        setFilteredPosts(filteredPosts); // 빈 배열이 아닌 게시물을 설정하도록 변경
-  
-        // 참여자 attender인 경우
-        const filteredPosts2 = allposts.filter((post) => {
-          const { hour, minute, day, month } = post;
-          const postTime = new Date(now.getFullYear(), month - 1, day, hour, minute);
-          const elapsedTime = now - postTime;
-          const isAttender = diningSpoonData.some((spoon) => spoon.username === id && spoon.selectionStatus === 1);
-          console.log(isAttender+id,'isAttender')
-        
-          //  isAttender가 true일 경우, diningSpoonData 배열에서 spoon_id가 id와 일치하고 attending이 true인 경우를 찾음
-          if (isAttender) {
-            const matchingSpoon = diningSpoonData.find((spoon) => spoon.username === id && spoon.selectionStatus ===1);
-            const matchingPostNumber = matchingSpoon.diningId;
-            console.log('matchingSpoon',matchingPostNumber)
-            console.log('elapsedTime',elapsedTime)
-            return post.diningId === matchingPostNumber;
-            //  return post.id === matchingPostNumber && elapsedTime >= threshold;
-          }
-          // 해당 spoon의 postnumber를 가져와서 posts 배열에서 id와 비교하여 일치하는 게시물을 필터링
-          return false;
-        });
-  
-        setFilteredPosts2(filteredPosts2); // 빈 배열이 아닌 게시물을 설정하도록 변경
-      } catch (error) {
-        console.error('Error fetching dining_spoon data:', error);
-      }
-    };
-  
-    ListFilterPosts();
-  }, [posts, id]);
-  
-  console.log('Filtered Posts111111f:', filteredPosts);
-  console.log('Filtered Posts22222f:', filteredPosts2);
-  
-// filteredPosts의 handleRatingClose
-const handleRatingClosePosts = () => {
-  setShowPopupPosts(false);
-};
-
-// filteredPosts2의 handleRatingClose
-const handleRatingClosePosts2 = () => {
-  setShowPopupPosts2(false);
-};
-
-useEffect(()=>{
-  axios
-.get("/applications/dining_spoon")
-.then((response) => {
-  setDiningSpoonData(response.data.data);
-  console.log('dingS',response.data.data)
-})
-.catch((error) => {
-  console.log('/applications/dining_spoon',error);
-});
-
-},[])
-console.log('diningSpoonData',diningSpoonData);
-
-
   return (
 
     <div className="Main_islogin">
 
         <Header_islogin userid={id}/>
-        {/* RatingPopup 추가부분 팝업 컴포넌트 표시 */}
-{showPopupPosts && filteredPosts.map((post) => (
-      <RatingPopup
-        key={post.id}
-        post={post}
-        yourUserId={id}
-        onClosePosts={handleRatingClosePosts}
-        diningSpoonData={diningSpoonData}
-        filteredPosts={filteredPosts}
-        filteredPosts2={filteredPosts2}
-        type="posts"
-      />
-    ))}
-    {showPopupPosts2 && filteredPosts2.map((post) => (
-      <RatingPopup
-        key={post.id}
-        post={post}
-        yourUserId={id}
-        onClosePosts2={handleRatingClosePosts2}
-        diningSpoonData={diningSpoonData}
-        filteredPosts={filteredPosts}
-        filteredPosts2={filteredPosts2}
-        type="posts2"
-      />
-    ))}
       <div className="Main2">
 
            <br></br><br></br><br></br>
@@ -410,54 +293,52 @@ console.log('diningSpoonData',diningSpoonData);
            <br></br>
             <div className="grid">
              
-              {posts.map(post=>{
-                console.log(count);
-                console.log(postcounter);
-               
-                if(postcounter==count){
-                 return;
-                }
-                else{
-                  countsetting++;
-                }
-                postcounter++;
-                return (
+            {posts&&posts.length>0&&(posts.map(post=>(
+                
+                /* console.log(count);
+                 console.log(postcounter);
+                 if(posts.length==0){
+                   return null;
+                 }
+                 if(postcounter==count){
+                  return null;
+                 }
+                 else{
+                   countsetting++;
+                 }
+                 postcounter++;*/
+                
+                   
+                   <Card 
+                   
+                   accessuserid={id}
+                   id={post.diningId} 
+                   title={post.dining_title} 
+                   restaurantname={post.restaurant_name}
+                   hour={post.hour}
+                   minute={post.minute}
+                   day={post.day}
                   
-                  <Card
-                  accessuserid={id}
-                  id={post.diningId} 
-                  title={post.dining_title} 
-                  restaurantname={post.restaurant_name}
-                  hour={post.hour}
-                  minute={post.minute}
-                  day={post.day}
-                  postnnumber={post.diningId}
+                   month={post.month}
+                   writemonth={post.writemonth}
+                   writeday={post.writeday}
+                   endmonth={post.endmonth}
+                   endday={post.endday}
+                   attendcounter={post.people_count}
+                   attender1={post.attender1}
+                   attender2={post.attender2}
+                   attender3={post.attender3}
+                   region={post.restaurant_location}
+                   thumbnail={post.dining_thumbnail}
+                   userid={post.writer_id}
+                   maxattender={post.maxattender}
+                   introduction={post.introduction}
+                 />
+                   
                  
-                  month={post.month}
-                  writemonth={post.writemonth}
-                  writeday={post.writeday}
-                  endmonth={post.endmonth}
-                  endday={post.endday}
-                  attendcounter={post.people_count}
-                  attender1={post.attender1}
-                  attender2={post.attender2}
-                  attender3={post.attender3}
-                  region={post.restaurant_location}
-                  thumbnail={post.dining_thumbnail}
-                  userid={post.writer_id}
-                  maxattender={post.maxattender}
-                  introduction={post.introduction}
-                  />
-                  
-                 /* <div class="card" key={post.id}>
-                  <div class="card-body">
-                    {post.dining_title}
-                  </div>
-                </div>*/
-                  
-                );
                
-              })}
+               )))
+               }
             </div>
 
               <button className="submit2" onClick={reset}>더보기</button>

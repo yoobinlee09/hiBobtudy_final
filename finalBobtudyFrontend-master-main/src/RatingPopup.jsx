@@ -39,7 +39,7 @@ const RatingPopup = ({ post, yourUserId, onClosePosts, onClosePosts2, diningSpoo
           console.log(`참석자 ${index + 1}:`, data);
           console.log(typeof diningScores[attenderId])
   
-          scorePromises.push(axios.put('/members/mannerscore', data));
+          scorePromises.push(axios.put('/members/mannerscore', data, { withCredentials: true }));
         });
       } else {
         console.log('평가할 사람이 없습니다.');
@@ -72,7 +72,7 @@ const handleDiningScoreConfirmationPosts2 = async () => {
       manner_score: diningScores[post.writer_id], // 평점
     }
     scorePromises.push(
-      axios.put('/members/mannerscore', data)
+      axios.put('/members/mannerscore', data, { withCredentials: true })
     );
 
     if (scorePromises.length > 0) {

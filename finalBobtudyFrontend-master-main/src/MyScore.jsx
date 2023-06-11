@@ -12,7 +12,7 @@ export const MyScore = () => {
   const [userId, setUserId] = useState("");
 
   useEffect(() => {
-    axios.get(`/memberInfo/${id}`)
+    axios.get(`/memberInfo/${id}`, { withCredentials: true })
       .then((response) => {
         setUserInfo(response.data.data); // setUserInfo를 배열이 아니라 객체로 설정합니다.
         console.log('info성공', response.data.data)

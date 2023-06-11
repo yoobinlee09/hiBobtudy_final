@@ -19,7 +19,7 @@ import MyPage from './MyPage';
       useEffect(() => {
         setUserId(id);
         
-        axios.get(`/memberInfo/${id}`)
+        axios.get(`/memberInfo/${id}`, { withCredentials: true })
           .then((response) => {
             setUsers([response.data.data]);
             console.log('성공',[response.data.data])
@@ -64,19 +64,18 @@ import MyPage from './MyPage';
               <div className='list'>  
               <label for="listcss">
               <ul>
-                <li><Link to={"/DiningList"} state={{userid: id}}>밥상 목록</Link></li>
+              <li><Link to={"/DiningList"} state={{userid: id}}>밥상 목록</Link></li>
                 {/* <li><NavLink style={activeStyle} to='/DiningList' onClick={godininglist}>밥상 목록</NavLink></li> */}
               {/* NavLink로 state를 보낼 때 ''빈 값이 보내지는 오류 */}
                 <br></br>
                 <br></br>
                 <li><Link to={"/Profile"} state={{userid: id}}>내 프로필</Link></li>
-                <li><Link to={"/Profile"} state={{userid: id}}>식사 매너 온도</Link></li>
-                <li><Link to={"/Profile"} state={{userid: id}}>쪽지함</Link></li>
+                <li><Link to={"/MyScore"} state={{userid: id}}>식사 매너 온도</Link></li>
+                <li><Link to={"/Message"} state={{userid: id}}>쪽지함</Link></li>
                 <br></br>
                 <br></br>
                 <li><Link to={"/Main"}>로그아웃</Link></li>
-              
-              </ul>      
+              </ul>          
 
               </label>     
                 

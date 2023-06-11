@@ -1,3 +1,4 @@
+
 import './Main.css';
 
 import Header from"./Header";
@@ -9,12 +10,15 @@ import axios from 'axios';
 import React, { useState, useEffect,callback,useCallback,useRef } from 'react';
 import Card from './Card';
 function Main() {
+  const API_URL = process.env.REACT_APP_API_URL;
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+ // let posts=[{dining_title:"밥먹자",diningId:1,writer_id:"정현"}];
     const [posts,setPosts]=useState([]);
  
  
     const getPosts=()=>{
       console.log("검색어:"+searchText);
-      axios.get('/dining/all').then((res)=>{
+      axios.get('/dining/all', { withCredentials: true }).catch((err)=>{console.log(err);}).then((res)=>{
         
        
         if(searchText==''&&regionset==''&&genderset=='혼성'){
@@ -279,20 +283,23 @@ function Main() {
            <br></br>
             <div className="grid">
              
-              {posts.map(post=>{
-                console.log(count);
+              {posts&&posts.length>0&&(posts.map(post=>(
+              
+               /* console.log(count);
                 console.log(postcounter);
-               
+                if(posts.length==0){
+                  return null;
+                }
                 if(postcounter==count){
-                 return;
+                 return null;
                 }
                 else{
                   countsetting++;
                 }
-                postcounter++;
-                return (
+                postcounter++;*/
+               
                   
-                  <Card onClick={loginmessage}
+                  <Card 
                   
                   //accessuserid={id}
                   id={post.diningId} 
@@ -316,11 +323,12 @@ function Main() {
                   userid={post.writer_id}
                   maxattender={post.maxattender}
                   introduction={post.introduction}
-                  />
+                />
                   
-                );
-               
-              })}
+                
+              
+              )))
+              }
             </div>
 
               <button className="submit2" onClick={reset}>더보기</button>
