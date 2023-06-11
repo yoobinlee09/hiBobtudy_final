@@ -21,6 +21,11 @@ import Card from './Card';
 
 
 export default function Main_islogin() {
+  const now=new Date();
+      const nowmonth=now.getMonth()+1;
+      const nowday=now.getDate();
+      const nowhour=now.getHours();
+      const nowminute=now.getMinutes();
   axios.defaults.baseURL = process.env.REACT_APP_API_URL;
   const location = useLocation();
   // eslint-disable-next-line no-restricted-globals
@@ -216,6 +221,9 @@ export default function Main_islogin() {
           return (e.dining_title.includes(searchText)||e.restaurant_name.includes(searchText))&&e.gender_check.includes('혼성')&&e.restaurant_location.includes('제주');
         }))}
       }
+
+    
+
     });
   }
   useEffect(()=>{

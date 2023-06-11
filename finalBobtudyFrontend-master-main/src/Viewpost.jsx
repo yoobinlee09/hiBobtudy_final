@@ -188,7 +188,7 @@ function displayMarker(place) {
     //const attender1=location.state.attender1;
     //const attender2=location.state.attender2;
     //const attender3=location.state.attender3;
-    const postid=location.state.postid;
+    const postid=location.state.userid;
     const userid=location.state.userid;
 
     const [attenders, setAttenders] = useState([]); 

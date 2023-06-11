@@ -189,6 +189,8 @@ const renderSpoonButtons = () => {
         // MyPost에서 현재 spoon의 username을 가진 데이터를 찾습니다
         // MyPost는 사용자정보, 신청 내역이 diningSpoonList는 겸상 신청 내역만
         const myPostData = MyPost.find(item => item.username === spoon.username);
+        console.log(myPostData)
+        
         
         // myPostData가 없다면 다음 반복으로
         if (!myPostData) return null;
@@ -199,13 +201,17 @@ const renderSpoonButtons = () => {
             className="spoonbutton2"
             onClick={() => handleSpoonSelection(spoon.username)}
           >
+            
             <div className="button-content">
               <div className="font-button">{myPostData.username}</div>
               <div className="description-button">{myPostData.application_message ? myPostData.application_message : ""}</div>
             </div>
-            <div className='info'>          
+            <div className='info'>      
+            <br></br>    
               <div>{myPostData.gender === "female" ? "여성" : "남성"}</div>
               <div>{Math.floor(myPostData.age/10)}0대</div>
+              <div>별점 {myPostData.manner_score ? myPostData.manner_score : "없음"}</div>
+              
             </div>
           </button>
         )
